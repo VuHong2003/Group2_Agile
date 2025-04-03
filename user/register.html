@@ -3,277 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng Ký - Shop Thời Trang</title>
+    <title>Đăng Ký - Dragon Store</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- Custom CSS -->
-    <style>
-        :root {
-            --primary-color: #ff6b6b;
-            --primary-hover: #ff5252;
-            --light-red: #fff5f5;
-            --dark-red: #ff4444;
-        }
-
-        body {
-            background: linear-gradient(135deg, var(--light-red) 0%, #ffffff 100%);
-            font-family: 'Roboto', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .register-container {
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 40px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .register-container:hover {
-            transform: translateY(-5px);
-        }
-
-        .form-title {
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 30px;
-            font-weight: 700;
-            font-size: 2rem;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .form-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 3px;
-            background: var(--primary-color);
-            border-radius: 2px;
-        }
-
-        .form-control {
-            border: 2px solid #eee;
-            border-radius: 10px;
-            padding: 12px;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25);
-        }
-
-        .form-label {
-            color: #555;
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-
-        .btn-register {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 10px;
-            width: 100%;
-            margin-top: 20px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            font-size: 1.1rem;
-        }
-
-        .btn-register:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-        }
-
-        .btn-register:active {
-            transform: translateY(0);
-        }
-
-        .login-link {
-            text-align: center;
-            margin-top: 25px;
-            color: #666;
-            font-size: 1rem;
-        }
-
-        .login-link a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .login-link a:hover {
-            color: var(--primary-hover);
-        }
-
-        .error-message {
-            color: var(--dark-red);
-            font-size: 0.875rem;
-            margin-top: 5px;
-            display: none;
-            padding-left: 5px;
-        }
-
-        .input-group {
-            position: relative;
-        }
-
-        .input-group i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #999;
-        }
-
-        .input-group input {
-            padding-left: 40px;
-        }
-
-        .form-floating {
-            margin-bottom: 20px;
-        }
-
-        @media (max-width: 576px) {
-            .register-container {
-                margin: 10px;
-                padding: 20px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
-    <div class="container">
-        <div class="register-container">
-            <h2 class="form-title">Đăng Ký Tài Khoản</h2>
-            <form id="registerForm" onsubmit="return handleSubmit(event)">
-                <div class="form-floating mb-3">
-                    <div class="input-group">
-                        <i class="fas fa-user"></i>
-                        <input type="text" class="form-control" id="fullName" placeholder="Họ và tên" required>
-                    </div>
-                    <div class="error-message" id="fullNameError"></div>
-                </div>
-                <div class="form-floating mb-3">
-                    <div class="input-group">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" class="form-control" id="email" placeholder="Địa chỉ email" required>
-                    </div>
-                    <div class="error-message" id="emailError"></div>
-                </div>
-                <div class="form-floating mb-3">
-                    <div class="input-group">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" class="form-control" id="password" placeholder="Mật khẩu" required>
-                    </div>
-                    <div class="error-message" id="passwordError"></div>
-                </div>
-                <div class="form-floating mb-3">
-                    <div class="input-group">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" class="form-control" id="confirmPassword" placeholder="Xác nhận mật khẩu" required>
-                    </div>
-                    <div class="error-message" id="confirmPasswordError"></div>
-                </div>
-                <button type="submit" class="btn btn-register">
-                    <i class="fas fa-user-plus me-2"></i>Đăng Ký
-                </button>
-            </form>
-            <div class="login-link">
-                Đã có tài khoản? <a href="login.html"><i class="fas fa-sign-in-alt me-1"></i>Đăng nhập</a>
+    <div class="register-container">
+        <div class="register-header">
+            <h1>Dragon Store</h1>
+            <p>Đăng ký tài khoản mới</p>
+        </div>
+        <form id="registerForm" onsubmit="return handleSubmit(event)">
+            <div class="form-group">
+                <input type="text" class="form-control" id="fullName" placeholder="Họ và tên" required>
+                <div class="error-message" id="fullNameError"></div>
             </div>
+            <div class="form-group">
+                <input type="email" class="form-control" id="email" placeholder="Email" required>
+                <div class="error-message" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" placeholder="Mật khẩu" required>
+                <div class="error-message" id="passwordError"></div>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Xác nhận mật khẩu" required>
+                <div class="error-message" id="confirmPasswordError"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                Đăng Ký
+            </button>
+        </form>
+        <div class="login-link">
+            Đã có tài khoản? <a href="login.html">Đăng nhập</a>
         </div>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- Custom JS -->
-    <script>
-        function handleSubmit(event) {
-            event.preventDefault();
-            
-            // Reset error messages
-            document.querySelectorAll('.error-message').forEach(elem => {
-                elem.style.display = 'none';
-            });
-
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            let isValid = true;
-
-            // Validate full name
-            if (fullName.length < 2) {
-                document.getElementById('fullNameError').textContent = 'Họ tên phải có ít nhất 2 ký tự';
-                document.getElementById('fullNameError').style.display = 'block';
-                isValid = false;
-            }
-
-            // Validate email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                document.getElementById('emailError').textContent = 'Vui lòng nhập địa chỉ email hợp lệ';
-                document.getElementById('emailError').style.display = 'block';
-                isValid = false;
-            }
-
-            // Validate password
-            if (password.length < 6) {
-                document.getElementById('passwordError').textContent = 'Mật khẩu phải có ít nhất 6 ký tự';
-                document.getElementById('passwordError').style.display = 'block';
-                isValid = false;
-            }
-
-            // Validate confirm password
-            if (password !== confirmPassword) {
-                document.getElementById('confirmPasswordError').textContent = 'Mật khẩu xác nhận không khớp';
-                document.getElementById('confirmPasswordError').style.display = 'block';
-                isValid = false;
-            }
-
-            if (isValid) {
-                // Here you would typically send the data to your backend
-                // For demo purposes, we'll just show a success message and redirect
-                alert('Đăng ký thành công! Vui lòng kiểm tra email để xác nhận tài khoản.');
-                window.location.href = 'login.html';
-            }
-
-            return false;
-        }
-
-        // Real-time password matching validation
-        document.getElementById('confirmPassword').addEventListener('input', function() {
-            const password = document.getElementById('password').value;
-            const confirmPasswordError = document.getElementById('confirmPasswordError');
-            
-            if (this.value !== password) {
-                confirmPasswordError.textContent = 'Mật khẩu xác nhận không khớp';
-                confirmPasswordError.style.display = 'block';
-            } else {
-                confirmPasswordError.style.display = 'none';
-            }
-        });
-    </script>
+    <script src="js/register.js"></script>
 </body>
 </html> 

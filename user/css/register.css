@@ -1,0 +1,102 @@
+:root {
+    --primary-color: #e60012;
+    --primary-hover: #cc0000;
+    --light-red: #fff5f5;
+    --dark-red: #2c1a1a;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--light-red);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.register-container {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(230, 0, 18, 0.1);
+}
+
+.register-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.register-header h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.form-control {
+    border: 2px solid #eee;
+    padding: 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    margin-bottom: 25px;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(230, 0, 18, 0.25);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(230, 0, 18, 0.3);
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.login-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.login-link a:hover {
+    color: var(--primary-hover);
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: none;
+}
+
+@media (max-width: 576px) {
+    .register-container {
+        padding: 30px 20px;
+    }
+} 

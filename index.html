@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Thời Trang - Trang Chủ</title>
+    <title>Dragon Store - Thời Trang Cho Mọi Người</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -13,10 +13,10 @@
     <!-- Custom CSS -->
     <style>
         :root {
-            --primary-color: #ff6b6b;
-            --primary-hover: #ff5252;
+            --primary-color: #e60012;
+            --primary-hover: #cc0000;
             --light-red: #fff5f5;
-            --dark-red: #ff4444;
+            --dark-red: #2c1a1a;
         }
 
         body {
@@ -24,50 +24,148 @@
             background-color: var(--light-red);
         }
 
+        /* Navbar Styles */
         .navbar {
             background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(230, 0, 18, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .navbar-brand {
-            color: var(--primary-color) !important;
-            font-weight: 700;
             font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .nav-link {
-            color: #333 !important;
+            color: var(--dark-red);
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            margin: 0 10px;
         }
 
         .nav-link:hover {
-            color: var(--primary-color) !important;
+            color: var(--primary-color);
         }
 
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .cart-icon {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        /* Search Bar Styles */
+        .search-form {
+            position: relative;
+            margin-right: 15px;
+        }
+
+        .search-input {
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            padding: 8px 15px 8px 40px;
+            width: 250px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(230, 0, 18, 0.25);
+            outline: none;
+            width: 300px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background-color: var(--light-red);
+        }
+
+        @media (max-width: 992px) {
+            .search-form {
+                margin: 15px 0;
+                width: 100%;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .search-input:focus {
+                width: 100%;
+            }
+        }
+
+        /* Hero Section */
         .hero-section {
-            background: linear-gradient(135deg, var(--light-red) 0%, #ffffff 100%);
-            padding: 100px 0;
+            background: linear-gradient(rgba(230, 0, 18, 0.1), rgba(230, 0, 18, 0.1)), url('https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80') center/cover;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
             margin-bottom: 50px;
         }
 
-        .hero-title {
-            color: var(--primary-color);
+        .hero-content h1 {
+            font-size: 3.5rem;
             font-weight: 700;
-            font-size: 3rem;
             margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
-        .hero-subtitle {
-            color: #666;
+        .hero-content p {
             font-size: 1.2rem;
             margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
         .btn-primary {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
-            padding: 10px 30px;
+            padding: 12px 30px;
             font-weight: 500;
             transition: all 0.3s ease;
         }
@@ -76,61 +174,274 @@
             background-color: var(--primary-hover);
             border-color: var(--primary-hover);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 0, 18, 0.3);
         }
 
-        .feature-card {
-            background: white;
+        /* Promotions Section */
+        .promotions-section {
+            padding: 50px 0;
+            background-color: white;
+        }
+
+        .promotion-card {
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-hover));
             border-radius: 15px;
             padding: 30px;
+            color: white;
             margin-bottom: 30px;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
-        .feature-card:hover {
+        .promotion-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(230, 0, 18, 0.3);
         }
 
-        .feature-icon {
-            color: var(--primary-color);
+        .promotion-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .promotion-description {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .promotion-code {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        /* Featured Products */
+        .featured-products {
+            padding: 50px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark-red);
+        }
+
+        .section-title h2 {
             font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(230, 0, 18, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 40px;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(230, 0, 18, 0.2);
+        }
+
+        .product-image {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: var(--dark-red);
+        }
+
+        .product-price {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .cart-icon-btn {
+            background: var(--light-red);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--primary-color);
+        }
+
+        .cart-icon-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Important Information */
+        .info-section {
+            padding: 50px 0;
+            background-color: white;
+        }
+
+        .info-card {
+            text-align: center;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
             margin-bottom: 20px;
         }
 
+        .info-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: var(--dark-red);
+        }
+
+        .info-text {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
         .footer {
-            background-color: white;
+            background-color: var(--dark-red);
+            color: white;
             padding: 50px 0;
             margin-top: 50px;
         }
 
         .footer-title {
-            color: var(--primary-color);
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 20px;
-        }
-
-        .footer-link {
-            color: #666;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .footer-link:hover {
             color: var(--primary-color);
+        }
+
+        .footer-content p {
+            margin-bottom: 10px;
+            color: #ccc;
         }
 
         .social-links a {
-            color: var(--primary-color);
+            color: white;
             font-size: 1.5rem;
             margin-right: 15px;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .social-links a:hover {
-            color: var(--primary-hover);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Loading State */
+        .loading-placeholder {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 15px;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-content p {
+                font-size: 1rem;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            .promotion-title {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -138,39 +449,48 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <i class="fas fa-tshirt me-2"></i>Shop Thời Trang
-            </a>
+            <a class="navbar-brand" href="index.html">Dragon Store</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#featured-products">Sản phẩm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#promotions">Khuyến mãi</a>
+                    </li>
+                </ul>
+                <form class="search-form d-flex">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm...">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Trang Chủ</a>
+                    <li class="nav-item" id="login-nav-item">
+                        <a class="nav-link" href="user/login.html">Đăng nhập</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="products.html">Sản Phẩm</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">Giới Thiệu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Liên Hệ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#cart">
-                            <i class="fas fa-shopping-cart"></i> Giỏ Hàng
+                    <li class="nav-item dropdown" id="user-nav-item" style="display: none;">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i> <span id="user-name"></span>
                         </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="user/profile.html">Tài khoản</a></li>
+                            <li><a class="dropdown-item" href="user/orders.html">Đơn hàng</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">Đăng xuất</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="user/login.html">
-                            <i class="fas fa-sign-in-alt"></i> Đăng Nhập
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="user/register.html">
-                            <i class="fas fa-user-plus"></i> Đăng Ký
+                        <a class="nav-link cart-icon" href="user/cart.html">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
                         </a>
                     </li>
                 </ul>
@@ -180,47 +500,99 @@
 
     <!-- Hero Section -->
     <section class="hero-section">
+        <div class="hero-content">
+            <h1>Áo Thời Trang Cho Mọi Người</h1>
+            <p>Khám phá bộ sưu tập áo mới nhất với những thiết kế độc đáo và phong cách hiện đại</p>
+            <a href="#" class="btn btn-primary">Mua Sắm Ngay</a>
+        </div>
+    </section>
+
+    <!-- Promotions Section -->
+    <section class="promotions-section">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h1 class="hero-title">Thời Trang Cho Mọi Người</h1>
-                    <p class="hero-subtitle">Khám phá bộ sưu tập mới nhất với những thiết kế độc đáo và phong cách đa dạng.</p>
-                    <a href="products.html" class="btn btn-primary">
-                        <i class="fas fa-shopping-bag me-2"></i>Mua Sắm Ngay
-                    </a>
+            <div class="section-title">
+                <h2>Khuyến Mãi Đặc Biệt</h2>
+                <p>Đừng bỏ lỡ những ưu đãi hấp dẫn từ Dragon Store</p>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="promotion-card">
+                        <h3 class="promotion-title">Giảm 30% Cho Đơn Hàng Đầu Tiên</h3>
+                        <p class="promotion-description">Áp dụng cho tất cả áo thời trang, không giới hạn số lượng</p>
+                        <span class="promotion-code">Mã: FIRST30</span>
+                    </div>
                 </div>
-                <div class="col-lg-6">
-                    <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                         alt="Fashion Collection" 
-                         class="img-fluid rounded-3 shadow">
+                <div class="col-md-6">
+                    <div class="promotion-card">
+                        <h3 class="promotion-title">Miễn Phí Vận Chuyển</h3>
+                        <p class="promotion-description">Cho đơn hàng từ 500.000đ trở lên</p>
+                        <span class="promotion-code">Mã: FREESHIP</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features-section">
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Áo Nổi Bật</h2>
+                <p>Khám phá những mẫu áo được yêu thích nhất của chúng tôi</p>
+            </div>
+            <div class="row" id="featured-products-container">
+                <!-- Loading Placeholder -->
+                <div class="col-md-3">
+                    <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Important Information -->
+    <section class="info-section">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="feature-card text-center">
-                        <i class="fas fa-truck feature-icon"></i>
-                        <h3>Giao Hàng Nhanh</h3>
-                        <p>Miễn phí vận chuyển cho đơn hàng trên 500.000đ</p>
+                    <div class="info-card">
+                        <i class="fas fa-truck info-icon"></i>
+                        <h3 class="info-title">Hướng Dẫn Mua Hàng</h3>
+                        <p class="info-text">Chọn áo yêu thích, thêm vào giỏ hàng, điền thông tin và thanh toán. Chúng tôi sẽ giao hàng nhanh chóng.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="feature-card text-center">
-                        <i class="fas fa-undo feature-icon"></i>
-                        <h3>Đổi Trả Dễ Dàng</h3>
-                        <p>30 ngày đổi trả miễn phí</p>
+                    <div class="info-card">
+                        <i class="fas fa-undo info-icon"></i>
+                        <h3 class="info-title">Chính Sách Đổi Trả</h3>
+                        <p class="info-text">Đổi trả miễn phí trong vòng 30 ngày nếu áo không vừa ý. Hỗ trợ tận tình, nhanh chóng.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="feature-card text-center">
-                        <i class="fas fa-lock feature-icon"></i>
-                        <h3>Thanh Toán An Toàn</h3>
-                        <p>Bảo mật thông tin thanh toán</p>
+                    <div class="info-card">
+                        <i class="fas fa-headset info-icon"></i>
+                        <h3 class="info-title">Hỗ Trợ 24/7</h3>
+                        <p class="info-text">Đội ngũ tư vấn luôn sẵn sàng hỗ trợ bạn mọi lúc. Liên hệ qua hotline hoặc chat trực tuyến.</p>
                     </div>
                 </div>
             </div>
@@ -232,32 +604,267 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h4 class="footer-title">Về Chúng Tôi</h4>
-                    <p>Shop thời trang với những sản phẩm chất lượng và phong cách đa dạng cho mọi người.</p>
+                    <div class="footer-content">
+                        <h3 class="footer-title">Về Chúng Tôi</h3>
+                        <p>Dragon Store - Thương hiệu thời trang hàng đầu Việt Nam</p>
+                        <p><i class="fas fa-map-marker-alt"></i> 80 Đặng Văn Ngữ, Trung Tự, Đống Đa, Hà Nội</p>
+                        <p><i class="fas fa-phone"></i> 0982 964 909</p>
+                        <p><i class="fas fa-envelope"></i> dragonstore2025@gmail.com</p>
+                    </div>
                 </div>
                 <div class="col-md-4">
-                    <h4 class="footer-title">Liên Kết Nhanh</h4>
-                    <a href="products.html" class="footer-link">Sản Phẩm</a>
-                    <a href="about.html" class="footer-link">Giới Thiệu</a>
-                    <a href="contact.html" class="footer-link">Liên Hệ</a>
+                    <div class="footer-content">
+                        <h3 class="footer-title">Liên Kết Nhanh</h3>
+                        <p><a href="#" class="text-white text-decoration-none">Trang chủ</a></p>
+                        <p><a href="#" class="text-white text-decoration-none">Sản phẩm</a></p>
+                        <p><a href="#" class="text-white text-decoration-none">Giới thiệu</a></p>
+                        <p><a href="#" class="text-white text-decoration-none">Liên hệ</a></p>
+                    </div>
                 </div>
                 <div class="col-md-4">
-                    <h4 class="footer-title">Kết Nối Với Chúng Tôi</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    <div class="footer-content">
+                        <h3 class="footer-title">Kết Nối Với Chúng Tôi</h3>
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/honq.39" target="_blank"><i class="fab fa-facebook"></i></a>
+                            <a href="https://www.instagram.com/honq.39" target="_blank"><i class="fab fa-instagram"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <hr class="mt-4">
-            <div class="text-center">
-                <p class="mb-0">&copy; 2024 Shop Thời Trang. All rights reserved.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Dragon Store. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Cart data structure
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Format price
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "đ";
+        }
+
+        // Add to cart
+        function addToCart(name, price, image) {
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    image: image,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Update cart count
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            document.querySelector('.cart-count').textContent = cartCount;
+            
+            // Show success message
+            toastr.success('Đã thêm sản phẩm vào giỏ hàng');
+        }
+
+        // Kiểm tra trạng thái đăng nhập
+        function checkLoginStatus() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const userName = localStorage.getItem('userName');
+            const loginNavItem = document.getElementById('login-nav-item');
+            const userNavItem = document.getElementById('user-nav-item');
+            const userNameElement = document.getElementById('user-name');
+
+            if (isLoggedIn && userName) {
+                loginNavItem.style.display = 'none';
+                userNavItem.style.display = 'block';
+                userNameElement.textContent = userName;
+            } else {
+                loginNavItem.style.display = 'block';
+                userNavItem.style.display = 'none';
+            }
+        }
+        
+        // Đăng xuất
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userName');
+            window.location.href = 'user/login.html';
+        }
+        
+        // Kiểm tra trạng thái đăng nhập khi trang được tải
+        document.addEventListener('DOMContentLoaded', checkLoginStatus);
+
+        // Cập nhật số lượng sản phẩm trong giỏ hàng
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCountElement = document.querySelector('.cart-count');
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCountElement.textContent = totalItems;
+        }
+
+        // Simulate loading products
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cập nhật số lượng sản phẩm trong giỏ hàng
+            updateCartCount();
+            
+            setTimeout(function() {
+                const container = document.getElementById('featured-products-container');
+                container.innerHTML = `
+                    <div class="col-md-3">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo thun basic">
+                                <span class="product-badge">-20%</span>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">Áo Thun Basic</h3>
+                                <p class="product-price">299.000đ</p>
+                                <div class="product-actions">
+                                    <button class="btn btn-outline-primary" onclick="addToCart('Áo Thun Basic', 299000, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">Thêm vào giỏ</button>
+                                    <button class="cart-icon-btn" onclick="addToCart('Áo Thun Basic', 299000, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo polo">
+                                <span class="product-badge">-15%</span>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">Áo Polo</h3>
+                                <p class="product-price">399.000đ</p>
+                                <div class="product-actions">
+                                    <button class="btn btn-outline-primary" onclick="addToCart('Áo Polo', 399000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">Thêm vào giỏ</button>
+                                    <button class="cart-icon-btn" onclick="addToCart('Áo Polo', 399000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo sơ mi">
+                                <span class="product-badge">-25%</span>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">Áo Sơ Mi</h3>
+                                <p class="product-price">499.000đ</p>
+                                <div class="product-actions">
+                                    <button class="btn btn-outline-primary" onclick="addToCart('Áo Sơ Mi', 499000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">Thêm vào giỏ</button>
+                                    <button class="cart-icon-btn" onclick="addToCart('Áo Sơ Mi', 499000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo hoodie">
+                                <span class="product-badge">-30%</span>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">Áo Hoodie</h3>
+                                <p class="product-price">599.000đ</p>
+                                <div class="product-actions">
+                                    <button class="btn btn-outline-primary" onclick="addToCart('Áo Hoodie', 599000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">Thêm vào giỏ</button>
+                                    <button class="cart-icon-btn" onclick="addToCart('Áo Hoodie', 599000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo thun graphic">
+                                <span class="product-badge">-20%</span>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">Áo Thun Graphic</h3>
+                                <p class="product-price">349.000đ</p>
+                                <div class="product-actions">
+                                    <button class="btn btn-outline-primary" onclick="addToCart('Áo Thun Graphic', 349000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">Thêm vào giỏ</button>
+                                    <button class="cart-icon-btn" onclick="addToCart('Áo Thun Graphic', 349000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo tank top">
+                                <span class="product-badge">-15%</span>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">Áo Tank Top</h3>
+                                <p class="product-price">249.000đ</p>
+                                <div class="product-actions">
+                                    <button class="btn btn-outline-primary" onclick="addToCart('Áo Tank Top', 249000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">Thêm vào giỏ</button>
+                                    <button class="cart-icon-btn" onclick="addToCart('Áo Tank Top', 249000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo sơ mi kẻ">
+                                <span class="product-badge">-25%</span>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">Áo Sơ Mi Kẻ</h3>
+                                <p class="product-price">549.000đ</p>
+                                <div class="product-actions">
+                                    <button class="btn btn-outline-primary" onclick="addToCart('Áo Sơ Mi Kẻ', 549000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">Thêm vào giỏ</button>
+                                    <button class="cart-icon-btn" onclick="addToCart('Áo Sơ Mi Kẻ', 549000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo len">
+                                <span class="product-badge">-30%</span>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">Áo Len</h3>
+                                <p class="product-price">699.000đ</p>
+                                <div class="product-actions">
+                                    <button class="btn btn-outline-primary" onclick="addToCart('Áo Len', 699000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">Thêm vào giỏ</button>
+                                    <button class="cart-icon-btn" onclick="addToCart('Áo Len', 699000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }, 1000); // Simulate 1 second loading time
+        });
+    </script>
 </body>
 </html> 

@@ -1,0 +1,136 @@
+:root {
+    --primary-color: #e60012;
+    --primary-hover: #cc0000;
+    --light-red: #fff5f5;
+    --dark-red: #2c1a1a;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--light-red);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(230, 0, 18, 0.1);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Login Section */
+.login-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
+}
+
+.login-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(230, 0, 18, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.login-title {
+    color: var(--dark-red);
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--dark-red);
+    margin-bottom: 8px;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(230, 0, 18, 0.25);
+}
+
+.btn-login {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 500;
+    width: 100%;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
+
+.login-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+    background-color: white;
+    padding: 20px 0;
+    margin-top: auto;
+    box-shadow: 0 -2px 10px rgba(230, 0, 18, 0.1);
+}
+
+.footer-content {
+    text-align: center;
+    color: #666;
+}
+
+.footer-content p {
+    margin-bottom: 5px;
+}
+
+.footer-content a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.footer-content a:hover {
+    text-decoration: underline;
+} 

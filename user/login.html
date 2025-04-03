@@ -3,366 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng Nhập - Shop Thời Trang</title>
+    <title>Đăng Nhập - Dragon Store</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- Custom CSS -->
-    <style>
-        :root {
-            --primary-color: #ff6b6b;
-            --primary-hover: #ff5252;
-            --light-red: #fff5f5;
-            --dark-red: #ff4444;
-        }
-
-        body {
-            background: linear-gradient(135deg, var(--light-red) 0%, #ffffff 100%);
-            font-family: 'Roboto', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
-            opacity: 0.1;
-            z-index: 0;
-        }
-
-        .main-container {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-        }
-
-        .login-container {
-            max-width: 450px;
-            margin: 20px auto;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .login-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.3);
-        }
-
-        .shop-logo {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .shop-logo img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--primary-color);
-            padding: 5px;
-            background: white;
-            transition: transform 0.3s ease;
-        }
-
-        .shop-logo img:hover {
-            transform: scale(1.1);
-        }
-
-        .form-title {
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 30px;
-            font-weight: 700;
-            font-size: 2rem;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .form-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 3px;
-            background: var(--primary-color);
-            border-radius: 2px;
-        }
-
-        .form-control {
-            border: 2px solid #eee;
-            border-radius: 10px;
-            padding: 12px;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25);
-            background: white;
-        }
-
-        .btn-login {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 10px;
-            width: 100%;
-            margin-top: 20px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            font-size: 1.1rem;
-        }
-
-        .btn-login:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-        }
-
-        .btn-login:active {
-            transform: translateY(0);
-        }
-
-        .links-container {
-            text-align: center;
-            margin-top: 25px;
-            color: #666;
-            font-size: 1rem;
-        }
-
-        .links-container a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: block;
-            margin: 10px 0;
-            position: relative;
-        }
-
-        .links-container a:hover {
-            color: var(--primary-hover);
-            transform: translateX(5px);
-        }
-
-        .error-message {
-            color: var(--dark-red);
-            font-size: 0.875rem;
-            margin-top: 5px;
-            display: none;
-            padding-left: 5px;
-            animation: shake 0.5s ease-in-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .input-group i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #999;
-            transition: color 0.3s ease;
-        }
-
-        .input-group input:focus + i {
-            color: var(--primary-color);
-        }
-
-        .input-group input {
-            padding-left: 40px;
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            margin: 15px 0;
-            color: #666;
-        }
-
-        .remember-me input[type="checkbox"] {
-            margin-right: 8px;
-            accent-color: var(--primary-color);
-        }
-
-        .home-link {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            z-index: 2;
-        }
-
-        .home-link:hover {
-            color: var(--primary-hover);
-            transform: translateX(-5px);
-        }
-
-        @media (max-width: 576px) {
-            .login-container {
-                margin: 10px;
-                padding: 20px;
-            }
-            
-            .shop-logo img {
-                width: 100px;
-                height: 100px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-    <a href="../index.html" class="home-link">
-        <i class="fas fa-home"></i>
-    </a>
-    <div class="main-container">
-        <div class="container">
-            <div class="login-container">
-                <div class="shop-logo">
-                    <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Shop Logo">
-                </div>
-                <h2 class="form-title">Đăng Nhập</h2>
-                <form id="loginForm" onsubmit="return handleSubmit(event)">
-                    <div class="input-group">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" class="form-control" id="email" placeholder="Địa chỉ email" required>
-                        <div class="error-message" id="emailError"></div>
-                    </div>
-                    <div class="input-group">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" class="form-control" id="password" placeholder="Mật khẩu" required>
-                        <div class="error-message" id="passwordError"></div>
-                    </div>
-                    <div class="remember-me">
-                        <input type="checkbox" id="rememberMe">
-                        <label for="rememberMe">Ghi nhớ đăng nhập</label>
-                    </div>
-                    <button type="submit" class="btn btn-login">
-                        <i class="fas fa-sign-in-alt me-2"></i>Đăng Nhập
-                    </button>
-                </form>
-                <div class="links-container">
-                    <a href="forgot-password.html">
-                        <i class="fas fa-key me-1"></i>Quên mật khẩu?
-                    </a>
-                    <a href="register.html">
-                        <i class="fas fa-user-plus me-1"></i>Chưa có tài khoản? Đăng ký ngay
-                    </a>
-                </div>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Dragon Store</h1>
+            <p>Đăng nhập để mua sắm</p>
+        </div>
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <input type="text" class="form-control" id="username" placeholder="Tên đăng nhập" required>
             </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" placeholder="Mật khẩu" required>
+            </div>
+            <div class="remember-me">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Ghi nhớ đăng nhập</label>
+                </div>
+                <a href="forgot-password.html">Quên mật khẩu?</a>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                Đăng Nhập
+            </button>
+        </form>
+        <div class="links-container">
+            <p>Chưa có tài khoản? <a href="register.html">Đăng ký ngay</a></p>
         </div>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- Custom JS -->
-    <script>
-        function handleSubmit(event) {
-            event.preventDefault();
-            
-            // Reset error messages
-            document.querySelectorAll('.error-message').forEach(elem => {
-                elem.style.display = 'none';
-            });
-
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
-
-            let isValid = true;
-
-            // Validate email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                document.getElementById('emailError').textContent = 'Vui lòng nhập địa chỉ email hợp lệ';
-                document.getElementById('emailError').style.display = 'block';
-                isValid = false;
-            }
-
-            // Validate password
-            if (password.length < 6) {
-                document.getElementById('passwordError').textContent = 'Mật khẩu phải có ít nhất 6 ký tự';
-                document.getElementById('passwordError').style.display = 'block';
-                isValid = false;
-            }
-
-            if (isValid) {
-                // Here you would typically send the data to your backend
-                // For demo purposes, we'll simulate a successful login
-                if (rememberMe) {
-                    localStorage.setItem('rememberedEmail', email);
-                } else {
-                    localStorage.removeItem('rememberedEmail');
-                }
-                
-                // Show success message with animation
-                const loginContainer = document.querySelector('.login-container');
-                loginContainer.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    loginContainer.style.transform = 'scale(1)';
-                }, 200);
-
-                // Simulate successful login
-                alert('Đăng nhập thành công!');
-                window.location.href = '../index.html'; // Redirect to home page
-            }
-
-            return false;
-        }
-
-        // Check for remembered email on page load
-        window.addEventListener('load', function() {
-            const rememberedEmail = localStorage.getItem('rememberedEmail');
-            if (rememberedEmail) {
-                document.getElementById('email').value = rememberedEmail;
-                document.getElementById('rememberMe').checked = true;
-            }
-        });
-
-        // Add animation to form elements on focus
-        document.querySelectorAll('.form-control').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'translateX(5px)';
-            });
-            input.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'translateX(0)';
-            });
-        });
-    </script>
+    <script src="js/login.js"></script>
 </body>
 </html> 
