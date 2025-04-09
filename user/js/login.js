@@ -11,36 +11,36 @@ function checkLoginStatus() {
 function handleLogin(event) {
     event.preventDefault();
     
-    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const rememberMe = document.getElementById('rememberMe').checked;
     
     // Kiểm tra thông tin đăng nhập
-    if (!username || !password) {
+    if (!email || !password) {
         toastr.error('Vui lòng nhập đầy đủ thông tin đăng nhập');
         return;
     }
     
-    // Lấy danh sách người dùng từ localStorage
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    
-    // Tìm người dùng
-    const user = users.find(u => u.username === username && u.password === password);
-    
-    if (user) {
-        // Đăng nhập thành công
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userName', user.username);
-        
-        toastr.success('Đăng nhập thành công!');
-        
-        // Chuyển hướng về trang chủ sau 1 giây
-        setTimeout(() => {
+    // Hiển thị thông báo đăng nhập thành công và chuyển hướng
+    // Trong thực tế, bạn cần kết nối với backend để xác thực thông tin đăng nhập
+    toastr.success('Đăng nhập thành công!', 'Thành công', {
+        timeOut: 1500,
+        onHidden: function() {
+            // Lưu trạng thái đăng nhập nếu người dùng chọn "Ghi nhớ đăng nhập"
+            if (rememberMe) {
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userEmail', email);
+            } else {
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('userEmail', email);
+            }
+            
+            // Chuyển hướng về trang chủ
             window.location.href = '../index.html';
-        }, 1000);
-    } else {
-        // Đăng nhập thất bại
-        toastr.error('Tên đăng nhập hoặc mật khẩu không đúng');
-    }
+        }
+    });
+    
+    return false;
 }
 
 // Initialize

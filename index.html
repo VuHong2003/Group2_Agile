@@ -537,7 +537,7 @@
     <section class="featured-products">
         <div class="container">
             <div class="section-title">
-                <h2>Áo Nổi Bật</h2>
+                <h2>Sản phẩm Nổi Bật</h2>
                 <p>Khám phá những mẫu áo được yêu thích nhất của chúng tôi</p>
             </div>
             <div class="row" id="featured-products-container">
@@ -676,17 +676,27 @@
 
         // Kiểm tra trạng thái đăng nhập
         function checkLoginStatus() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-            const userName = localStorage.getItem('userName');
+            const isLoggedInLocal = localStorage.getItem('isLoggedIn') === 'true';
+            const isLoggedInSession = sessionStorage.getItem('isLoggedIn') === 'true';
+            const isLoggedIn = isLoggedInLocal || isLoggedInSession;
+            
+            // Lấy thông tin người dùng từ localStorage hoặc sessionStorage
+            const userEmail = localStorage.getItem('userEmail') || sessionStorage.getItem('userEmail');
+            
             const loginNavItem = document.getElementById('login-nav-item');
             const userNavItem = document.getElementById('user-nav-item');
             const userNameElement = document.getElementById('user-name');
 
-            if (isLoggedIn && userName) {
+            if (isLoggedIn && userEmail) {
+                // Nếu đã đăng nhập, ẩn "Đăng nhập" và hiển thị "Tài khoản"
                 loginNavItem.style.display = 'none';
                 userNavItem.style.display = 'block';
-                userNameElement.textContent = userName;
+                
+                // Hiển thị email người dùng (có thể cắt bớt nếu quá dài)
+                const displayName = userEmail.split('@')[0]; // Lấy phần trước @
+                userNameElement.textContent = displayName;
             } else {
+                // Nếu chưa đăng nhập, hiển thị "Đăng nhập" và ẩn "Tài khoản"
                 loginNavItem.style.display = 'block';
                 userNavItem.style.display = 'none';
             }
@@ -694,8 +704,13 @@
         
         // Đăng xuất
         function logout() {
+            // Xóa thông tin đăng nhập khỏi cả localStorage và sessionStorage
             localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('userEmail');
+            
+            // Chuyển hướng về trang đăng nhập
             window.location.href = 'user/login.html';
         }
         
@@ -739,11 +754,11 @@
                     <div class="col-md-3">
                         <div class="product-card">
                             <div class="product-image">
-                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo polo">
+                                <img src="https://th.bing.com/th/id/OIP.-lncuzRFalXlRglLwj8WxAHaJ4?rs=1&pid=ImgDetMain" alt="Áo polo">
                                 <span class="product-badge">-15%</span>
                             </div>
                             <div class="product-info">
-                                <h3 class="product-title">Áo Polo</h3>
+                                <h3 class="product-title">Áo Polo Nam</h3>
                                 <p class="product-price">399.000đ</p>
                                 <div class="product-actions">
                                     <button class="btn btn-outline-primary" onclick="addToCart('Áo Polo', 399000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">Thêm vào giỏ</button>
@@ -757,11 +772,11 @@
                     <div class="col-md-3">
                         <div class="product-card">
                             <div class="product-image">
-                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo sơ mi">
+                                <img src="https://dongphuchaianh.vn/wp-content/uploads/2022/08/Cac-mau-ao-so-mi-nam-dep-nhat-mau-trang.jpeg" alt="Áo sơ mi">
                                 <span class="product-badge">-25%</span>
                             </div>
                             <div class="product-info">
-                                <h3 class="product-title">Áo Sơ Mi</h3>
+                                <h3 class="product-title">Áo Sơ Mi Nam</h3>
                                 <p class="product-price">499.000đ</p>
                                 <div class="product-actions">
                                     <button class="btn btn-outline-primary" onclick="addToCart('Áo Sơ Mi', 499000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">Thêm vào giỏ</button>
@@ -775,7 +790,7 @@
                     <div class="col-md-3">
                         <div class="product-card">
                             <div class="product-image">
-                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo hoodie">
+                                <img src="https://saigonsneaker.com/wp-content/uploads/2020/11/Ao-khoac-hoodie-flexible-toi-gian-xanh-reu-9.jpg" alt="Áo hoodie">
                                 <span class="product-badge">-30%</span>
                             </div>
                             <div class="product-info">
@@ -793,7 +808,7 @@
                     <div class="col-md-3">
                         <div class="product-card">
                             <div class="product-image">
-                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo thun graphic">
+                                <img src="https://th.bing.com/th/id/OIP.PKO8L8dOREmY8dHgKM2scAHaLH?w=204&h=306&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Áo thun graphic">
                                 <span class="product-badge">-20%</span>
                             </div>
                             <div class="product-info">
@@ -811,7 +826,7 @@
                     <div class="col-md-3">
                         <div class="product-card">
                             <div class="product-image">
-                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo tank top">
+                                <img src="https://th.bing.com/th/id/OIP.yTygdEwIPBB9SNnwlXkr-QHaJ4?w=157&h=209&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Áo tank top">
                                 <span class="product-badge">-15%</span>
                             </div>
                             <div class="product-info">
@@ -829,7 +844,7 @@
                     <div class="col-md-3">
                         <div class="product-card">
                             <div class="product-image">
-                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo sơ mi kẻ">
+                                <img src="https://th.bing.com/th/id/OIP.O5p6c4OouJeSz6k06nXzrgHaJQ?w=174&h=218&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Áo sơ mi kẻ">
                                 <span class="product-badge">-25%</span>
                             </div>
                             <div class="product-info">
@@ -847,7 +862,7 @@
                     <div class="col-md-3">
                         <div class="product-card">
                             <div class="product-image">
-                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Áo len">
+                                <img src="https://th.bing.com/th/id/OIP.eyOaMeziAF6Irjt1eWwSewHaHa?w=208&h=208&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Áo len">
                                 <span class="product-badge">-30%</span>
                             </div>
                             <div class="product-info">

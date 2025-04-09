@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Theo Dõi Đơn Hàng - Dragon Store</title>
+    <title>Đơn Hàng Của Tôi - Dragon Store</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/orders.css">
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="../index.html">Dragon Store</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -27,50 +29,195 @@
                         <a class="nav-link" href="../index.html">Trang chủ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.html#featured-products">Sản phẩm</a>
+                        <a class="nav-link" href="products.html">Sản phẩm</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.html#promotions">Khuyến mãi</a>
+                        <a class="nav-link" href="promotions.html">Khuyến mãi</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item" id="login-nav-item">
-                        <a class="nav-link" href="login.html">Đăng nhập</a>
-                    </li>
-                    <li class="nav-item dropdown" id="user-nav-item" style="display: none;">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-user"></i> <span id="user-name"></span>
-                        </a>
+                <div class="d-flex align-items-center">
+                    <a href="cart.html" class="btn btn-outline-primary me-3 position-relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">
+                            0
+                        </span>
+                    </a>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i>
+                            <span id="user-name">Tài khoản</span>
+                        </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="profile.html">Tài khoản</a></li>
-                            <li><a class="dropdown-item" href="orders.html">Đơn hàng</a></li>
+                            <li><a class="dropdown-item active" href="orders.html">Đơn hàng</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" onclick="logout()">Đăng xuất</a></li>
+                            <li><a class="dropdown-item" href="#" id="logout-btn">Đăng xuất</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link cart-icon" href="cart.html">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="cart-count">0</span>
-                        </a>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Orders Section -->
-    <section class="orders-section">
-        <div class="container">
-            <h1 class="orders-title">Theo Dõi Đơn Hàng</h1>
-            <div id="orders-container">
-                <!-- Orders will be dynamically added here -->
+    <!-- Main Content -->
+    <div class="container orders-section">
+        <div class="orders-header">
+            <h1>Đơn Hàng Của Tôi</h1>
+            <p>Theo dõi trạng thái và chi tiết các đơn hàng của bạn</p>
+        </div>
+
+        <!-- Order Tabs -->
+        <ul class="nav nav-tabs" id="orderTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true">Tất cả</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab" aria-controls="pending" aria-selected="false">Chờ xác nhận</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="processing-tab" data-bs-toggle="tab" data-bs-target="#processing" type="button" role="tab" aria-controls="processing" aria-selected="false">Đang xử lý</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="shipping-tab" data-bs-toggle="tab" data-bs-target="#shipping" type="button" role="tab" aria-controls="shipping" aria-selected="false">Đang giao</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed" type="button" role="tab" aria-controls="completed" aria-selected="false">Đã giao</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="cancelled-tab" data-bs-toggle="tab" data-bs-target="#cancelled" type="button" role="tab" aria-controls="cancelled" aria-selected="false">Đã hủy</button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="orderTabsContent">
+            <!-- All Orders Tab -->
+            <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                <div class="orders-container" id="all-orders">
+                    <!-- Orders will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Pending Orders Tab -->
+            <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+                <div class="orders-container" id="pending-orders">
+                    <!-- Pending orders will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Processing Orders Tab -->
+            <div class="tab-pane fade" id="processing" role="tabpanel" aria-labelledby="processing-tab">
+                <div class="orders-container" id="processing-orders">
+                    <!-- Processing orders will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Shipping Orders Tab -->
+            <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
+                <div class="orders-container" id="shipping-orders">
+                    <!-- Shipping orders will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Completed Orders Tab -->
+            <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
+                <div class="orders-container" id="completed-orders">
+                    <!-- Completed orders will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Cancelled Orders Tab -->
+            <div class="tab-pane fade" id="cancelled" role="tabpanel" aria-labelledby="cancelled-tab">
+                <div class="orders-container" id="cancelled-orders">
+                    <!-- Cancelled orders will be loaded here -->
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderDetailsModalLabel">Chi tiết đơn hàng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Order Details Header -->
+                    <div class="order-details-header">
+                        <div>
+                            <h5 class="order-details-number" id="modal-order-number">Đơn hàng #12345</h5>
+                            <p class="order-details-date" id="modal-order-date">Đặt ngày: 01/01/2023</p>
+                        </div>
+                        <div class="order-details-status">
+                            <span class="order-status" id="modal-order-status">Đang xử lý</span>
+                        </div>
+                    </div>
+
+                    <!-- Shipping Information -->
+                    <div class="shipping-info">
+                        <h5 class="shipping-info-title">Thông tin giao hàng</h5>
+                        <p><strong>Người nhận:</strong> <span id="modal-shipping-name">Nguyễn Văn A</span></p>
+                        <p><strong>Số điện thoại:</strong> <span id="modal-shipping-phone">0123456789</span></p>
+                        <p><strong>Địa chỉ:</strong> <span id="modal-shipping-address">123 Đường ABC, Phường XYZ, Quận 1, TP.HCM</span></p>
+                        <p><strong>Ghi chú:</strong> <span id="modal-shipping-note">Giao hàng giờ hành chính</span></p>
+                    </div>
+
+                    <!-- Order Items -->
+                    <div class="order-details-items">
+                        <h5>Sản phẩm đã đặt</h5>
+                        <div id="modal-order-items">
+                            <!-- Order items will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="order-details-summary">
+                        <h5>Tổng cộng</h5>
+                        <div class="summary-row">
+                            <span class="summary-label">Tạm tính:</span>
+                            <span class="summary-value" id="modal-subtotal">1,500,000 đ</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Phí vận chuyển:</span>
+                            <span class="summary-value" id="modal-shipping-fee">50,000 đ</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Giảm giá:</span>
+                            <span class="summary-value" id="modal-discount">-100,000 đ</span>
+                        </div>
+                        <div class="summary-total-row">
+                            <span class="summary-label">Tổng tiền:</span>
+                            <span class="summary-total" id="modal-total">1,450,000 đ</span>
+                        </div>
+                    </div>
+
+                    <!-- Order Tracking -->
+                    <div class="order-tracking">
+                        <h5 class="tracking-title">Trạng thái đơn hàng</h5>
+                        <div class="tracking-steps" id="modal-tracking-steps">
+                            <!-- Tracking steps will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-danger" id="modal-cancel-order">Hủy đơn hàng</button>
+                    <button type="button" class="btn btn-success" id="modal-reorder">Đặt lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- Custom JS -->
     <script src="js/orders.js"></script>
 </body>

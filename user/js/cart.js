@@ -109,16 +109,16 @@ function checkout() {
 
 // Kiểm tra trạng thái đăng nhập
 function checkLoginStatus() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    const userName = localStorage.getItem('userName');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true' || sessionStorage.getItem('isLoggedIn') === 'true';
+    const userEmail = localStorage.getItem('userEmail') || sessionStorage.getItem('userEmail');
     const loginNavItem = document.getElementById('login-nav-item');
     const userNavItem = document.getElementById('user-nav-item');
     const userNameElement = document.getElementById('user-name');
 
-    if (isLoggedIn && userName) {
+    if (isLoggedIn && userEmail) {
         loginNavItem.style.display = 'none';
         userNavItem.style.display = 'block';
-        userNameElement.textContent = userName;
+        userNameElement.textContent = userEmail;
     } else {
         loginNavItem.style.display = 'block';
         userNavItem.style.display = 'none';
@@ -128,7 +128,9 @@ function checkLoginStatus() {
 // Đăng xuất
 function logout() {
     localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('userName');
+    sessionStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userEmail');
+    sessionStorage.removeItem('userEmail');
     window.location.href = 'login.html';
 }
 

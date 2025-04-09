@@ -8,20 +8,24 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
+    <a href="../index.html" class="home-btn"><i class="fas fa-home"></i></a>
+    
     <div class="login-container">
         <div class="login-header">
-            <h1>Dragon Store</h1>
-            <p>Đăng nhập để mua sắm</p>
+            <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Clothes" class="profile-pic">
+            <h1>Đăng Nhập</h1>
         </div>
         <form id="loginForm" onsubmit="return handleLogin(event)">
             <div class="form-group">
-                <input type="text" class="form-control" id="username" placeholder="Tên đăng nhập" required>
+                <input type="email" class="form-control" id="email" placeholder="Email" required>
             </div>
             <div class="form-group">
                 <input type="password" class="form-control" id="password" placeholder="Mật khẩu" required>
@@ -31,13 +35,13 @@
                     <input type="checkbox" class="form-check-input" id="rememberMe">
                     <label class="form-check-label" for="rememberMe">Ghi nhớ đăng nhập</label>
                 </div>
-                <a href="forgot-password.html">Quên mật khẩu?</a>
             </div>
             <button type="submit" class="btn btn-primary">
-                Đăng Nhập
+                <i class="fas fa-sign-in-alt me-2"></i>Đăng Nhập
             </button>
         </form>
         <div class="links-container">
+            <a href="forgot-password.html">Quên mật khẩu?</a>
             <p>Chưa có tài khoản? <a href="register.html">Đăng ký ngay</a></p>
         </div>
     </div>
